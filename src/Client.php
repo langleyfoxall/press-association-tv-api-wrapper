@@ -133,6 +133,7 @@ class Client
             $params = [
                 'channelId' => $channelId,
                 'start' => date('Y-m-d'),
+                'limit' => 1000,
             ];
 
             $data = $this->request('get', 'schedule', $params);
