@@ -69,41 +69,48 @@ $items = $schedule->getByGenre('Football');
 The example below shows the available public properties that are available with a `ScheduleItem` object.
 
 ```php
-object(LangleyFoxall\PressAssociationTvApi\Objects\ScheduleItem)#412 (5) {
+object(LangleyFoxall\PressAssociationTvApi\Objects\ScheduleItem)#1542 (5) {
   ["title"]=>
-  string(16) "Arsenal Classics"
+  string(27) "Hockey: China v Netherlands"
   ["episodeTitle"]=>
-  string(16) "Arsenal Classics"
+  string(27) "Hockey: China v Netherlands"
   ["dateTime"]=>
-  string(24) "2018-07-26T03:00:00+0000"
+  object(Carbon\Carbon)#1538 (3) {
+    ["date"]=>
+    string(26) "2018-07-27 23:00:00.000000"
+    ["timezone_type"]=>
+    int(1)
+    ["timezone"]=>
+    string(6) "+00:00"
+  }
   ["channel"]=>
-  object(LangleyFoxall\PressAssociationTvApi\Objects\Channel)#398 (2) {
+  object(LangleyFoxall\PressAssociationTvApi\Objects\Channel)#1533 (2) {
     ["title"]=>
-    string(10) "BT Sport 1"
+    string(10) "BT Sport 2"
     ["images"]=>
-    object(Illuminate\Support\Collection)#399 (1) {
+    object(Illuminate\Support\Collection)#1534 (1) {
       ["items":protected]=>
       array(1) {
         [0]=>
-        object(stdClass)#396 (2) {
+        object(stdClass)#1531 (2) {
           ["kind"]=>
           string(12) "picture:logo"
           ["rendition"]=>
-          object(stdClass)#395 (3) {
+          object(stdClass)#1532 (3) {
             ["default"]=>
-            object(stdClass)#393 (1) {
+            object(stdClass)#1529 (1) {
               ["href"]=>
-              string(43) "http://tv.static.press.net/logo/p388706.png"
+              string(43) "http://tv.static.press.net/logo/p388708.png"
             }
             ["transparent-light"]=>
-            object(stdClass)#392 (1) {
+            object(stdClass)#1530 (1) {
               ["href"]=>
-              string(50) "http://tv.static.press.net/logo/p2201805121804.png"
+              string(50) "http://tv.static.press.net/logo/p2201805121806.png"
             }
             ["transparent-dark"]=>
-            object(stdClass)#391 (1) {
+            object(stdClass)#1506 (1) {
               ["href"]=>
-              string(50) "http://tv.static.press.net/logo/p1201805121804.png"
+              string(50) "http://tv.static.press.net/logo/p1201805121806.png"
             }
           }
         }
@@ -111,13 +118,11 @@ object(LangleyFoxall\PressAssociationTvApi\Objects\ScheduleItem)#412 (5) {
     }
   }
   ["genres"]=>
-  object(Illuminate\Support\Collection)#397 (1) {
+  object(Illuminate\Support\Collection)#1535 (1) {
     ["items":protected]=>
-    array(2) {
+    array(1) {
       [0]=>
-      string(5) "sport"
-      [1]=>
-      string(13) "football-club"
+      string(6) "hockey"
     }
   }
 }
