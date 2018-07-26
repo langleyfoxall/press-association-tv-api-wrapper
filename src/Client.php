@@ -136,6 +136,10 @@ class Client
 
         foreach($channelIds as $channelId) {
 
+            if (!$channelId) {
+                continue;
+            }
+
             $params = [
                 'channelId' => $channelId,
                 'start' => $date->format('Y-m-d'),
