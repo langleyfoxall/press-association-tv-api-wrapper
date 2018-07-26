@@ -1,6 +1,7 @@
 <?php
 namespace LangleyFoxall\PressAssociationTvApi;
 use Cache\Adapter\Filesystem\FilesystemCachePool;
+use Carbon\Carbon;
 use DateTime;
 use LangleyFoxall\PressAssociationTvApi\Objects\Channel;
 use LangleyFoxall\PressAssociationTvApi\Objects\Schedule;
@@ -122,6 +123,11 @@ class Client
      */
     public function getScheduleForToday(array $channelIds)
     {
+        return $this->getScheduleForDay($channelIds, Carbon::now());
+    }
+
+    public function getScheduleForDay(array $channelIds, Carbon $date)
+    {
         if (!$channelIds) {
             throw new \InvalidArgumentException('Channel IDs is required.');
         }
@@ -132,7 +138,8 @@ class Client
 
             $params = [
                 'channelId' => $channelId,
-                'start' => date('Y-m-d'),
+                'start' => $date->format('Y-m-d'),
+                'end' => $date->copy()->addDay()->format('Y-m-d'),
                 'limit' => 1000,
             ];
 
