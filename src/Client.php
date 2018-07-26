@@ -1,8 +1,14 @@
 <?php
 namespace LangleyFoxall\PressAssociationTvApi;
+use Cache\Adapter\Filesystem\FilesystemCachePool;
+use DateTime;
 use LangleyFoxall\PressAssociationTvApi\Objects\Channel;
 use LangleyFoxall\PressAssociationTvApi\Objects\Schedule;
 use LangleyFoxall\PressAssociationTvApi\Objects\ScheduleItem;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
+use Psr\Cache\CacheItemPoolInterface;
+use Psr\Cache\InvalidArgumentException;
 
 /**
  * Class Client
@@ -20,8 +26,14 @@ class Client
     private $client;
 
     /**
+     * @var CacheItemPoolInterface
+     */
+    private $cache;
+
+    /**
      * Client constructor.
      * @param string $apiKey
+     * @param CacheItemPoolInterface $cacheItemPool
      */
     public function __construct(string $apiKey)
     {
@@ -35,6 +47,18 @@ class Client
             'base_uri' => 'http://tv.api.press.net/v1/',
             'timeout' => 3.0,
         ]);
+
+        $this->setupCache();
+    }
+
+    private function setupCache()
+    {
+        $filesystemAdapter = new Local('/tmp/press-association-tv-api-wrapper');
+        $filesystem        = new Filesystem($filesystemAdapter);
+
+        $pool = new FilesystemCachePool($filesystem);
+
+        $this->cache = $pool;
     }
 
     /**
@@ -46,6 +70,18 @@ class Client
      */
     private function request(string $method, string $endpoint, array $params = [])
     {
+        $cacheKey = sha1(serialize(func_get_args()));
+
+        try {
+            $cacheItem = $this->cache->getItem($cacheKey);
+        } catch (InvalidArgumentException $e) {
+            exit('Unable to store retrieve cache item. Cache key is unsupported.');
+        }
+
+        if ($cacheItem->isHit()) {
+            return $cacheItem->get();
+        }
+
         $params['apikey'] = $this->apiKey;
 
         $response = $this->client->request($method, $endpoint, [
@@ -53,8 +89,14 @@ class Client
         ]);
 
         $body = (string) $response->getBody();
+        $decoded = json_decode($body);
 
-        return json_decode($body);
+        $cacheItem->set($decoded);
+        $cacheItem->expiresAt((new DateTime())->modify('+1 month'));
+
+        $this->cache->save($cacheItem);
+
+        return $decoded;
     }
 
     /**
