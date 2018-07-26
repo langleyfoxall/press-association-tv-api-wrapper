@@ -59,6 +59,7 @@ class Client
 
     /**
      * @param string $id
+     * @return Channel
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getChannel(string $id)
@@ -74,7 +75,7 @@ class Client
 
     /**
      * @param string $channelId
-     * @return array
+     * @return Schedule
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function getScheduleForToday(string $channelId)

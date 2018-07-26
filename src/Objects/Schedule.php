@@ -20,7 +20,7 @@ class Schedule
     /**
      * @var Collection
      */
-    public $items;
+    private $items;
 
     /**
      * @var array
@@ -46,6 +46,14 @@ class Schedule
     public function __construct(Collection $items)
     {
         $this->items = $items;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function all()
+    {
+        return $this->items;
     }
 
     /**

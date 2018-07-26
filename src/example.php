@@ -6,6 +6,8 @@ $client = new \LangleyFoxall\PressAssociationTvApi\Client('***REMOVED***');
 
 $schedule = $client->getScheduleForToday('da015cc7-a71e-3137-a110-30dc51262eef');
 
-$schedule->filterByGenre('Boxing');
+$items = $schedule->all();
 
-var_dump($schedule->items);
+$items = $schedule->getByGenre('Boxing');
+
+var_dump($items);
