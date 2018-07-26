@@ -107,6 +107,10 @@ class Client
      */
     public function getChannel(string $id)
     {
+        if (!$id) {
+            throw new \InvalidArgumentException('Channel ID is required.');
+        }
+
         $data = $this->request('get', 'channel/'.$id);
 
         $channel = new Channel();
