@@ -74,43 +74,50 @@ class Client
     }
 
     /**
-     * @param string $channelId
+     * @param array $channelIds
      * @return Schedule
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getScheduleForToday(string $channelId)
+    public function getScheduleForToday(array $channelIds)
     {
-        $params = [
-            'channelId' => $channelId,
-            'start' => date('Y-m-d'),
-        ];
-
-        $data = $this->request('get', 'schedule', $params);
-
-        $scheduleItems = [];
-
-        foreach($data->items as $item) {
-
-            $scheduleItem = new ScheduleItem();
-
-            $scheduleItem->title = $item->title;
-            $scheduleItem->episodeTitle = $item->asset->title;
-            $scheduleItem->dateTime = $item->dateTime;
-
-            $scheduleItem->genres = collect();
-
-            foreach($item->asset->tag as $tag) {
-                if (str_contains($tag->id, 'genre:')) {
-                    $genreParts = explode(':', $tag->id);
-                    $scheduleItem->genres->push($genreParts[1]);
-                }
-            }
-
-            $scheduleItem->channel = $this->getChannel($item->channel->id);
-
-            $scheduleItems[] = $scheduleItem;
+        if (!$channelIds) {
+            throw new \InvalidArgumentException('Channel IDs is required.');
         }
 
-        return new Schedule(collect($scheduleItems));
+        $scheduleItems = collect();
+
+        foreach($channelIds as $channelId) {
+
+            $params = [
+                'channelId' => $channelId,
+                'start' => date('Y-m-d'),
+            ];
+
+            $data = $this->request('get', 'schedule', $params);
+
+            foreach ($data->items as $item) {
+
+                $scheduleItem = new ScheduleItem();
+
+                $scheduleItem->title = $item->title;
+                $scheduleItem->episodeTitle = $item->asset->title;
+                $scheduleItem->dateTime = $item->dateTime;
+
+                $scheduleItem->genres = collect();
+
+                foreach ($item->asset->tag as $tag) {
+                    if (str_contains($tag->id, 'genre:')) {
+                        $genreParts = explode(':', $tag->id);
+                        $scheduleItem->genres->push($genreParts[1]);
+                    }
+                }
+
+                $scheduleItem->channel = $this->getChannel($item->channel->id);
+
+                $scheduleItems->push($scheduleItem);
+            }
+        }
+
+        return new Schedule($scheduleItems);
     }
 }
