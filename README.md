@@ -29,7 +29,11 @@ First instantiate the client using your API key.
 $client = new \LangleyFoxall\PressAssociationTvApi\Client('API_KEY');
 ```
 
-Retrieve the schedule for today by calling the `getScheduleForToday` method, passing it an array of channel IDs. This will return a `Schedule` object.
+You can retrieve the schedule for today by calling the `getScheduleForToday` method, passing it an array of channel IDs. 
+Similarly, you can also retrieve the schedule for a specific day using the `getScheduleForDay` method, passing it an
+array of channel IDs and a `Carbon` date object. 
+
+Both of these method will return a `Schedule` object.
 
 You may wish to surround this method call with a try catch block to catch any networking exceptions.
 
@@ -39,6 +43,12 @@ $schedule = $client->getScheduleForToday([
     '3b205a49-a866-32a0-b391-c727d52b1e79',
     '7cd38a6c-bb1f-306a-a6c6-00c7f7558432',
 ]);
+
+$tomorrowSchedule = $client->getScheduleForDay([
+        'da015cc7-a71e-3137-a110-30dc51262eef',
+        '3b205a49-a866-32a0-b391-c727d52b1e79',
+        '7cd38a6c-bb1f-306a-a6c6-00c7f7558432',
+    ], \Carbon\Carbon::now()->addDay());
 ```
 
 You can then retrieve all schedule items, by calling the `Schedule` object's `all` method.
