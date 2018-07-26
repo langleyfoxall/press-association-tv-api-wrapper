@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-$client = new \LangleyFoxall\PressAssociationTvApi\Client('***REMOVED***');
+$client = new \LangleyFoxall\PressAssociationTvApi\Client('API_KEY');
 
 try {
     $schedule = $client->getScheduleForToday([
