@@ -43,7 +43,9 @@ $schedule = $client->getScheduleForToday([
 
 You can then retrieve all schedule items, by calling the `Schedule` object's `all` method.
 
+```php
 $items = $schedule->all();
+```
 
 Alternatively, you can retrieve schedule items filtered by genre, by calling the `Schedule` object's `getByGenre` method.
 This method accepts a genre or sport name, such as `Football`, `Tennis`, or `Boxing`.
