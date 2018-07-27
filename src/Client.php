@@ -114,6 +114,7 @@ class Client
         $data = $this->request('get', 'channel/'.$id);
 
         $channel = new Channel();
+        $channel->id = $data->id;
         $channel->title = $data->title;
         $channel->images = collect($data->media);
 
