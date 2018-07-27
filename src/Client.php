@@ -121,6 +121,32 @@ class Client
     }
 
     /**
+     * @param array $ids
+     * @return \Illuminate\Support\Collection
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getChannels(array $ids)
+    {
+        if (!$ids) {
+            throw new \InvalidArgumentException('Channel IDs is required.');
+        }
+
+        $channels = collect();
+
+        foreach($ids as $id) {
+
+            if (!$id) {
+                continue;
+            }
+
+            $channels->push($this->getChannel($id));
+
+        }
+
+        return $channels;
+    }
+
+    /**
      * @param array $channelIds
      * @return Schedule
      * @throws \GuzzleHttp\Exception\GuzzleException
