@@ -8,7 +8,7 @@
         "cache/filesystem-adapter": "^1.0",
         "nesbot/carbon": "^1.25"
     },
-    "license": "proprietary",
+    "license": "LGPL-3.0-only",
     "authors": [
         {
             "name": "Jordan Hall",
