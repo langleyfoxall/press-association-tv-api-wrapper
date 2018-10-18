@@ -1,5 +1,7 @@
 # 📺⌚️ Press Association TV API Wrapper
 
+[![Packagist](https://img.shields.io/packagist/dt/langleyfoxall/press-association-tv-api-wrapper.svg)](https://packagist.org/packages/langleyfoxall/press-association-tv-api-wrapper/stats)
+
 This package provides a client for the [Press Association TV API](http://developer.press.net/).
 
 It provides access to information regarding TV channels, schedules and schedule items.
