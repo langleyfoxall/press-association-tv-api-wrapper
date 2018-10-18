@@ -1,6 +1,6 @@
 {
     "name": "langleyfoxall/press-association-tv-api-wrapper",
-    "description": "📺⌚️ Client for the Press Association TV API - provides access to information regarding TV channels, schedules and schedule items",
+    "description": "📺⌚️ Provides access to information regarding TV channels, schedules and schedules items",
     "type": "library",
     "require": {
         "guzzlehttp/guzzle": "^6.3",
