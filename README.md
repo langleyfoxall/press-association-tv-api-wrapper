@@ -1,21 +1,12 @@
-# Press Association TV API Wrapper
+# 📺⌚️ Press Association TV API Wrapper
 
-This package provides a client for the Press Association TV API.
+This package provides a client for the [Press Association TV API](http://developer.press.net/). It allows access to information regarding TV channels, schedules and schedules items.
+
+> The Press Association (PA) is the national news agency for the UK and Ireland and a leading multimedia content provider across web, mobile, broadcast and print. For the last 145 years PA has been providing fast, accurate feeds of text, data, photos and video. Today the business is increasingly focused on the delivery of complete products for both digital and print clients.
 
 ## Installation
 
-To install, add the following to your `composer.json`.
-
-```json
-"repositories": [
-        {
-            "type": "vcs",
-            "url": "git@github.com:langleyfoxall/press-association-tv-api-wrapper.git"
-        }
-    ],
-```
-
-When done, just run the following Composer command from the root of your project.
+To install, just run the following Composer command from the root of your project.
 
 ```bash
 composer require langleyfoxall/press-association-tv-api-wrapper
