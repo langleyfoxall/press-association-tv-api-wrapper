@@ -1,6 +1,8 @@
 # 📺⌚️ Press Association TV API Wrapper
 
-This package provides a client for the [Press Association TV API](http://developer.press.net/). It allows access to information regarding TV channels, schedules and schedules items.
+This package provides a client for the [Press Association TV API](http://developer.press.net/).
+
+It provides access to information regarding TV channels, schedules and schedule items.
 
 > The Press Association (PA) is the national news agency for the UK and Ireland and a leading multimedia content provider across web, mobile, broadcast and print. For the last 145 years PA has been providing fast, accurate feeds of text, data, photos and video. Today the business is increasingly focused on the delivery of complete products for both digital and print clients.
 
