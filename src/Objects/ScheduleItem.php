@@ -15,6 +15,10 @@ class ScheduleItem
     /**
      * @var string
      */
+    public $summary;
+    /**
+     * @var string
+     */
     public $episodeTitle;
     /**
      * @var string
