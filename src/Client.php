@@ -185,6 +185,7 @@ class Client
                 $scheduleItem = new ScheduleItem();
 
                 $scheduleItem->title = $item->title;
+                $scheduleItem->summary = $item->summary->medium;
                 $scheduleItem->episodeTitle = $item->asset->title;
                 $scheduleItem->dateTime = new Carbon($item->dateTime);
 
