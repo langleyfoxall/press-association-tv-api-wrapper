@@ -183,39 +183,21 @@ class Client
             foreach ($data->items as $item) {
 
                 $scheduleItem = new ScheduleItem();
-
-                if (isset($item->title)) {
+                if (isset($item->title, $item->asset->summary, $item->asset->title, $item->dateTime, $item->asset->tag, $item->channel->id)) {
                     $scheduleItem->title = $item->title;
-                }
-
-                if (isset($item->asset->summary)) {
                     $scheduleItem->summary = $item->asset->summary->short;
-                }
-
-                if (isset($item->asset->title)) {
                     $scheduleItem->episodeTitle = $item->asset->title;
-                }
-
-                if (isset($item->dateTime)) {
                     $scheduleItem->dateTime = new Carbon($item->dateTime);
-                }
-
-                $scheduleItem->genres = collect();
-
-                if (isset($item->asset->tag)) {
+                    $scheduleItem->genres = collect();
                     foreach ($item->asset->tag as $tag) {
                         if (str_contains($tag->id, 'genre:')) {
                             $genreParts = explode(':', $tag->id);
                             $scheduleItem->genres->push($genreParts[1]);
                         }
                     }
-                }
-
-                if (isset($item->channel->id)) {
                     $scheduleItem->channel = $this->getChannel($item->channel->id);
+                    $scheduleItems->push($scheduleItem);
                 }
-                
-                $scheduleItems->push($scheduleItem);
             }
         }
 
