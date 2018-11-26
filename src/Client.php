@@ -181,26 +181,22 @@ class Client
             $data = $this->request('get', 'schedule', $params);
 
             foreach ($data->items as $item) {
-
-                $scheduleItem = new ScheduleItem();
-
-                $scheduleItem->title = $item->title;
-                $scheduleItem->summary = $item->asset->summary->short;
-                $scheduleItem->episodeTitle = $item->asset->title;
-                $scheduleItem->dateTime = new Carbon($item->dateTime);
-
-                $scheduleItem->genres = collect();
-
-                foreach ($item->asset->tag as $tag) {
-                    if (str_contains($tag->id, 'genre:')) {
-                        $genreParts = explode(':', $tag->id);
-                        $scheduleItem->genres->push($genreParts[1]);
+                if (isset($item->title, $item->asset, $item->asset->summary, $item->asset->title, $item->dateTime, $item->asset->tag, $item->channel, $item->channel->id)) {
+                    $scheduleItem = new ScheduleItem();
+                    $scheduleItem->title = $item->title;
+                    $scheduleItem->summary = $item->asset->summary->short;
+                    $scheduleItem->episodeTitle = $item->asset->title;
+                    $scheduleItem->dateTime = new Carbon($item->dateTime);
+                    $scheduleItem->genres = collect();
+                    foreach ($item->asset->tag as $tag) {
+                        if (str_contains($tag->id, 'genre:')) {
+                            $genreParts = explode(':', $tag->id);
+                            $scheduleItem->genres->push($genreParts[1]);
+                        }
                     }
+                    $scheduleItem->channel = $this->getChannel($item->channel->id);
+                    $scheduleItems->push($scheduleItem);
                 }
-
-                $scheduleItem->channel = $this->getChannel($item->channel->id);
-
-                $scheduleItems->push($scheduleItem);
             }
         }
 
