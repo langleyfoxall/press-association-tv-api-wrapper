@@ -181,7 +181,7 @@ class Client
             $data = $this->request('get', 'schedule', $params);
 
             foreach ($data->items as $item) {
-                if (isset($item->title, $item->asset->summary, $item->asset->title, $item->dateTime, $item->asset->tag, $item->channel->id)) {
+                if (isset($item->title, $item->asset, $item->asset->summary, $item->asset->title, $item->dateTime, $item->asset->tag, $item->channel, $item->channel->id)) {
                     $scheduleItem = new ScheduleItem();
                     $scheduleItem->title = $item->title;
                     $scheduleItem->summary = $item->asset->summary->short;
